@@ -1,6 +1,6 @@
 # SpriteBatch
 
-Simple spritebatch library for SFML.
+Simple spritebatch library for SFML written in C++.
 
 ### Install
 
