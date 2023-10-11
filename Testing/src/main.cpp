@@ -26,10 +26,10 @@ int main()
 		float y = ((float)rand() / (float)RAND_MAX) * 720.f;
 		v[i].setPosition(x, y);
 
-		v[i].setColor(sf::Color(i, i, i, i));
-
 		float angle = ((float)rand() / (float)RAND_MAX) * 360.f;
 		v[i].setRotation(angle);
+
+		v[i].setColor(sf::Color(i, i, i, i));
 	}
 
 	sfex::SpriteBatch b;
