@@ -2,14 +2,14 @@
 #include <vector>
 
 #include <SFML/Graphics/Vertex.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 namespace sfex
 {
-	class SpriteBatch
+	class SpriteBatch : public sf::Drawable
 	{
 	public:
 
@@ -42,19 +42,16 @@ namespace sfex
 		/// <param name="sprite: ">sprite to submit</param>
 		void Submit(const sf::Sprite& sprite);
 
+	protected:
 
-		/// <summary>
-		/// This function draw the entire vertex array in the render target with a single draw call
-		/// </summary>
-		/// <param name="target: ">target to draw on</param>
-		void Render(sf::RenderTarget& target);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		
 		/// <summary>
-		/// Render States used to store the texture pointer
+		/// Texture pointer
 		/// </summary>
-		sf::RenderStates m_States;
+		const sf::Texture* m_Texture = nullptr;
 
 		/// <summary>
 		/// The vertices of all the sprite submitted to the batch
@@ -65,5 +62,7 @@ namespace sfex
 		/// Offset used to get every sprite vertex from the vertexarray
 		/// </summary>
 		size_t m_Offset = 0;
+
+		// Inherited via Drawable
 	};
 }

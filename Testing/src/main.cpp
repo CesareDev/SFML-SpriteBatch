@@ -5,8 +5,7 @@
 int main()
 {
 	sf::RenderWindow win(sf::VideoMode(720, 720), "Test!", sf::Style::Default);
-	//win.setVerticalSyncEnabled(true);
-	win.setFramerateLimit(60);
+	win.setVerticalSyncEnabled(true);
 
 	sf::Event ev;
 
@@ -51,7 +50,7 @@ int main()
 
 		win.clear(sf::Color::Black);
 
-		b.Render(win);
+		win.draw(b);
 
 		win.display();
 	}

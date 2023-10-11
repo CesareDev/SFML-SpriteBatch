@@ -14,7 +14,7 @@ namespace sfex
 
 	void SpriteBatch::Init(const sf::Texture& texture)
 	{
-		m_States.texture = &texture;
+		m_Texture = &texture;
 	}
 
 	void SpriteBatch::Begin(size_t count)
@@ -68,8 +68,10 @@ namespace sfex
 		}
 	}
 
-	void SpriteBatch::Render(sf::RenderTarget& target)
+	void SpriteBatch::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(m_VerteArray.data(), m_VerteArray.size(), sf::Quads, m_States);
+		if (m_Texture)
+			states.texture = m_Texture;
+		target.draw(m_VerteArray.data(), m_VerteArray.size(), sf::Quads, states);
 	}
 }
