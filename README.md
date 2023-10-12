@@ -54,5 +54,4 @@ Anyways you can find an example in the *Testing* directory
 ## TO-DO
 
 - [ ] Improve the build system
-- [ ] Multiple textures
 - [ ] Add z-ordering
