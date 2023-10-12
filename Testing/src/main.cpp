@@ -1,11 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <SpriteBatch.h>
 #include <iostream>
+#include <chrono>
+
+constexpr size_t ENTITIES_COUNT = 200;
+constexpr unsigned int WIN_W = 800;
+constexpr unsigned int WIN_H = 800;
 
 int main()
 {
-	sf::RenderWindow win(sf::VideoMode(720, 720), "Test!", sf::Style::Default);
-	win.setVerticalSyncEnabled(true);
+	sf::RenderWindow win(sf::VideoMode(WIN_W, WIN_H), "Test!", sf::Style::Default);
 
 	sf::Event ev;
 
@@ -13,17 +17,20 @@ int main()
 	tx.loadFromFile("res/text.png");
 
 	std::vector<sf::Sprite> v;
-	srand((unsigned)time(NULL));
 
-	v.resize(255);
-	for (int i = 0; i < 255; ++i)
+	sfex::SpriteBatch b;
+	b.Init(tx);
+
+	v.resize(ENTITIES_COUNT);
+
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < ENTITIES_COUNT; ++i)
 	{
-		v[i].setTexture(tx);
 		v[i].setTextureRect({ 0, 0, 32, 32 });
 		v[i].setOrigin(16.f, 16.f);
 
-		float x = ((float)rand() / (float)RAND_MAX) * 720.f;
-		float y = ((float)rand() / (float)RAND_MAX) * 720.f;
+		float x = ((float)rand() / (float)RAND_MAX) * (float)WIN_W;
+		float y = ((float)rand() / (float)RAND_MAX) * (float)WIN_H;
 		v[i].setPosition(x, y);
 
 		float angle = ((float)rand() / (float)RAND_MAX) * 360.f;
@@ -32,9 +39,7 @@ int main()
 		v[i].setColor(sf::Color(i, i, i, i));
 	}
 
-	sfex::SpriteBatch b;
-	b.Init(tx);
-
+	
 	while (win.isOpen())
 	{
 		while (win.pollEvent(ev))
@@ -53,6 +58,7 @@ int main()
 		win.draw(b);
 
 		win.display();
+
 	}
 
 	return 0;
