@@ -23,7 +23,6 @@ namespace sfex
 		/// </summary>
 		~SpriteBatch();
 
-
 		/// <summary>
 		/// This function assign a texture to the batch, make sure the texture doesn't get destroyed befor the batch itself is destroyed
 		/// </summary>
@@ -44,6 +43,7 @@ namespace sfex
 
 	protected:
 
+		// Inherited via Drawable
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
@@ -62,7 +62,5 @@ namespace sfex
 		/// Offset used to get every sprite vertex from the vertexarray
 		/// </summary>
 		size_t m_Offset = 0;
-
-		// Inherited via Drawable
 	};
 }

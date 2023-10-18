@@ -12,6 +12,7 @@ int main()
 	sf::RenderWindow win(sf::VideoMode(WIN_W, WIN_H), "Test!", sf::Style::Default);
 
 	sf::Event ev;
+	sf::Clock clock;
 
 	sf::Texture tx;
 	tx.loadFromFile("res/text.png");
@@ -35,10 +36,7 @@ int main()
 
 		float angle = ((float)rand() / (float)RAND_MAX) * 360.f;
 		v[i].setRotation(angle);
-
-		v[i].setColor(sf::Color(i, i, i, i));
 	}
-
 	
 	while (win.isOpen())
 	{
@@ -47,6 +45,24 @@ int main()
 			if (ev.type == sf::Event::Closed)
 				win.close();
 		}
+
+		auto dt = clock.restart().asSeconds();
+
+		sf::Sprite& s = v[v.size() - 1];
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			s.move(0.f, -64.f * dt);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			s.move(-64.f * dt, 0.f);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			s.move(0.f, 64.f * dt);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			s.move(64.f * dt, 0.f);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			s.rotate(-180.f * dt);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			s.rotate(180.f * dt);
 
 		b.Begin(v.size());
 

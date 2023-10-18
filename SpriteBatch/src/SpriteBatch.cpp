@@ -9,7 +9,6 @@ namespace sfex
 
 	SpriteBatch::~SpriteBatch()
 	{
-
 	}
 
 	void SpriteBatch::Init(const sf::Texture& texture)
@@ -25,44 +24,37 @@ namespace sfex
 
 	void SpriteBatch::Submit(const sf::Sprite& sprite)
 	{
-		if (m_Offset * 4 < m_VerteArray.size())
+		size_t index = m_Offset * 4;
+		if (index < m_VerteArray.size())
 		{
-
 			const sf::Transform& t = sprite.getTransform();
 			sf::FloatRect rect = sprite.getLocalBounds();
 
-			sf::Vector2f topLeft(rect.left, rect.top);
-			sf::Vector2f topRight(rect.left + rect.width, rect.top);
-			sf::Vector2f bottomRight(rect.left + rect.width, rect.top + rect.height);
-			sf::Vector2f bottomLeft(rect.left, rect.top + rect.height);
-
-			topLeft = t * topLeft;
-			topRight = t * topRight;
-			bottomRight = t * bottomRight;
-			bottomLeft = t * bottomLeft;
+			sf::Vector2f topLeft = t * sf::Vector2f(rect.left, rect.top);
+			sf::Vector2f topRight = t * sf::Vector2f(rect.left + rect.width, rect.top);
+			sf::Vector2f bottomRight = t * sf::Vector2f(rect.left + rect.width, rect.top + rect.height);
+			sf::Vector2f bottomLeft = t * sf::Vector2f(rect.left, rect.top + rect.height);
 			
 			float tx = (float)sprite.getTextureRect().left;
 			float ty = (float)sprite.getTextureRect().top;
 			float tw = (float)sprite.getTextureRect().width;
 			float th = (float)sprite.getTextureRect().height;
 
-			sf::Vertex* vertices = &m_VerteArray[m_Offset * 4];
+			m_VerteArray[index].position = topLeft;
+			m_VerteArray[index].texCoords = sf::Vector2f(tx, ty);
+			m_VerteArray[index].color = sprite.getColor();
 
-			vertices[0].position = topLeft;
-			vertices[0].texCoords = sf::Vector2f(tx, ty);
-			vertices[0].color = sprite.getColor();
+			m_VerteArray[index + 1].position = topRight;
+			m_VerteArray[index + 1].texCoords = sf::Vector2f(tx + tw, ty);
+			m_VerteArray[index + 1].color = sprite.getColor();
 
-			vertices[1].position = topRight;
-			vertices[1].texCoords = sf::Vector2f(tx + tw, ty);
-			vertices[1].color = sprite.getColor();
+			m_VerteArray[index + 2].position = bottomRight;
+			m_VerteArray[index + 2].texCoords = sf::Vector2f(tx + tw, ty + th);
+			m_VerteArray[index + 2].color = sprite.getColor();
 
-			vertices[2].position = bottomRight;
-			vertices[2].texCoords = sf::Vector2f(tx + tw, ty + th);
-			vertices[2].color = sprite.getColor();
-
-			vertices[3].position = bottomLeft;
-			vertices[3].texCoords = sf::Vector2f(tx, ty + th);
-			vertices[3].color = sprite.getColor();
+			m_VerteArray[index + 3].position = bottomLeft;
+			m_VerteArray[index + 3].texCoords = sf::Vector2f(tx, ty + th);
+			m_VerteArray[index + 3].color = sprite.getColor();
 
 			++m_Offset;
 		}
