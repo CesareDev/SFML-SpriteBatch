@@ -2,7 +2,7 @@
 
 Simple spritebatch library for SFML written in C++.
 
-### Install
+## Install
 
 Download the latest version and link statically the *.lib* files (one for release build and the other for the debug build). If you want more build options clone the repo, open the solution, modify the property page of the SpriteBatch project and build it yourself.
 
@@ -12,7 +12,7 @@ Include the *.h* file in your code
     #include <SpriteBatch.h>
     ...
 
-### Usage
+## Usage
 
 First instantiate the spritebatch class and initialize it with a reference to an existing texture.
 
@@ -51,8 +51,7 @@ Finally draw the batch
     
 Anyways you can find an example in the *Testing* directory
 
-### TO-DO
+## TO-DO
 
 - [ ] Improve the build system
-- [ ] Multiple textures
 - [ ] Add z-ordering
